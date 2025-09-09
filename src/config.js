@@ -1,0 +1,2 @@
+export const AUTH_START_URL = 'http://localhost:8080/auth/start?app_id=HABIT_COACH&return_to=http://localhost:5173/auth/complete';
+export const AUTH_EXCHANGE_URL = 'http://localhost:8080/V1/auth/exchange?code=';
