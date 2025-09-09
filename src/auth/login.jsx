@@ -1,5 +1,6 @@
 import React from "react";
 import {GoogleLogin} from "@react-oauth/google";
+import {JWT_TOKEN_KEY} from "../config.js";
 
 const Login = () => {
     const handleLoginSuccess = (credentialResponse) => {
@@ -13,8 +14,8 @@ const Login = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log("Login success:", data);
-                localStorage.setItem("jwt", data.token);
-                window.location.assign("/dashboard");
+                localStorage.setItem(JWT_TOKEN_KEY, data.token);
+                window.location.assign("/");
             })
             .catch((err) => console.error("Login error:", err));
     };

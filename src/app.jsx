@@ -1,16 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./auth/Login";
-import Dashboard from "./habitcoach/Dashboard";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Login from "./auth/login.jsx";
+import Dashboard from "./habitcoach/pages/dashboard.jsx";
+import Home from "./habitcoach/pages/home.jsx"
+import ProtectedRoute from "./auth/protected_route.jsx";
 
 function App() {
-    return (
-        <Router>
+    return (<Router>
             <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/dashboard" element={<ProtectedRoute>
+                    <Dashboard/>
+                </ProtectedRoute>}/>
+                <Route path="/" element={<Home/>}/>
             </Routes>
-        </Router>
-    );
+        </Router>);
 }
 
 export default App;
