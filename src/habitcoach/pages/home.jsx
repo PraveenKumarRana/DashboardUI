@@ -1,53 +1,21 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import {getUserFromToken, userLoggedIn} from '../../utils/user_utils.jsx'
-import {JWT_TOKEN_KEY} from "../../config.js";
-import {useNavigate} from "react-router-dom";
-import Navbar from "../components/navbar.jsx";
+import React from "react";
+import { Box, Container } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/navbar/navbar.jsx";
+import Sidebar from "../components/sidebar/sidebar.jsx"; // Assuming you will create this
 
-const Home = () => {
-    const [user, setUser] = useState(null);
-    const token = localStorage.getItem(JWT_TOKEN_KEY);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!token) return;
-
-        setUser(getUserFromToken());
-    }, [token]);
-
-    const handleLogout = () => {
-        localStorage.removeItem(JWT_TOKEN_KEY);
-        window.location.href = '/';
-    };
-
-    useEffect(() => {
-        console.log("isLoggedIn: ", userLoggedIn());
-        if (!userLoggedIn()) {
-            navigate('/login');
-        }
-    }, [userLoggedIn()]);
-
+const HomePage = () => {
     return (
-        <Fragment>
-            <Navbar />
-            <div style={{ padding: '2rem', textAlign: 'center' }}>
-                <h1>👋 Welcome to HabitCoach</h1>
-
-                {user ? (
-                    <>
-                        <p>Logged in as: <strong>{user.name || user.email}</strong></p>
-                        <p>User ID: {user.id}</p>
-                    </>
-                ) : (
-                    <p>Loading user info...</p>
-                )}
-
-                <button onClick={handleLogout} style={{ marginTop: '20px' }}>
-                    Logout
-                </button>
-            </div>
-        </Fragment>
+        <Box sx={{ display: "flex", minHeight: "100vh" }}>
+            <Sidebar />
+            <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+                <Navbar />
+                <Container sx={{ mt: 4 }}>
+                    <Outlet />
+                </Container>
+            </Box>
+        </Box>
     );
 };
 
-export default Home;
+export default HomePage;
