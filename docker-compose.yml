@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  habitcoach-frontend:
+    container_name: habitcoach-frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - buildloop-network
+
+networks:
+  buildloop-network:
+    external: true

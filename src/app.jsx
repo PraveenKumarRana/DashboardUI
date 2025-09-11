@@ -8,7 +8,7 @@ import CreateHabit from "./habitcoach/components/habits/create_habit.jsx";
 import EditHabit from "./habitcoach/components/habits/edit_habit.jsx";
 
 function App() {
-    return (<Router>
+    return (<Router basename="/mrcoach">
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/" element={<Home />}>

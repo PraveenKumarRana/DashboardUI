@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
         console.error('API Error:', error.response || error.message);
         if (error.response?.status === 401) {
             localStorage.removeItem(JWT_TOKEN_KEY);
-            window.location.href = '/login';
+            window.location.href = '/mrcoach/login';
         }
         return Promise.reject(error);
     }

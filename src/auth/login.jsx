@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {GoogleLogin} from "@react-oauth/google";
 import {BASE_URL, JWT_TOKEN_KEY} from "../config.js";
 import { Box, Typography, Paper } from "@mui/material";
+import axiosInstance from "../interceptor/axios_interceptor.js";
 
 
 const motivationalImages = [
@@ -23,12 +24,9 @@ const Login = () => {
     const handleLoginSuccess = (credentialResponse) => {
         console.log("Google ID Token:", credentialResponse.credential);
 
-        fetch(BASE_URL+"/api/auth/google", {
-            method: "POST",
-            headers: {"Content-Type": "application/json", "X-App-Id": "HABIT_COACH"},
-            body: JSON.stringify({idToken: credentialResponse.credential, appId: "HABIT_COACH"}),
-        })
-            .then((res) => res.json())
+        axiosInstance.post(BASE_URL+"/api/auth/google",
+            JSON.stringify({idToken: credentialResponse.credential, appId: "HABIT_COACH"}))
+            .then((res) => res)
             .then((data) => {
                 console.log("Login success:", data);
                 localStorage.setItem(JWT_TOKEN_KEY, data.token);
